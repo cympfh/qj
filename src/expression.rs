@@ -22,10 +22,17 @@ impl Expression {
             let (value, _) = char('=')(input)?;
             Ok((value, adr))
         }
+        fn load_value(value: &str) -> Value {
+            if let Ok(val) = serde_json::from_str(value) {
+                val
+            } else {
+                Value::String(String::from(value))
+            }
+        }
         let (value, adr) = read_exp(exp).unwrap();
         Expression {
             address: Address::parse(adr),
-            value: serde_json::from_str(value).unwrap(),
+            value: load_value(value),
         }
     }
 }

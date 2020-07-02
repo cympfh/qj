@@ -19,3 +19,13 @@ Dump JSON safely from command-line
    qj -e '.persons[1].name="Alice"'
 {"persons":[null,{"name":"Alice"}]}
 ```
+
+### Invalid values are Strings.
+
+```bash
+   qj -e '.=hoge'
+"hoge"
+
+   qj -e '.=ho"ge'
+"ho\"ge"
+```
