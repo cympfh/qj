@@ -1,0 +1,11 @@
+[package]
+name = "qj"
+version = "0.1.0"
+authors = ["cympfh <cympfh@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+nom = "5.1.2"
+structopt = "0.3.15"
+serde = "1.0.114"
+serde_json = "1.0"
