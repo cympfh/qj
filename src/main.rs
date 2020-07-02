@@ -38,6 +38,9 @@ fn set(val: &mut Value, exp: Expression) {
                 ptr = &mut ptr[f];
             }
             (AddressEntity::Index(i), AddressEntity::Field(_)) => {
+                if *ptr == Value::Null {
+                    *ptr = Value::Array(vec![]);
+                }
                 {
                     let arr = ptr.as_array_mut().unwrap();
                     while arr.len() <= *i {
@@ -50,6 +53,9 @@ fn set(val: &mut Value, exp: Expression) {
                 ptr = &mut ptr[i];
             }
             (AddressEntity::Index(i), AddressEntity::Index(_)) => {
+                if *ptr == Value::Null {
+                    *ptr = Value::Array(vec![]);
+                }
                 {
                     let arr = ptr.as_array_mut().unwrap();
                     while arr.len() <= *i {
@@ -68,6 +74,9 @@ fn set(val: &mut Value, exp: Expression) {
             ptr[f] = exp.value;
         }
         AddressEntity::Index(i) => {
+            if *ptr == Value::Null {
+                *ptr = Value::Array(vec![]);
+            }
             {
                 let arr = ptr.as_array_mut().unwrap();
                 while arr.len() <= *i {

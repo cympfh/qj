@@ -37,8 +37,24 @@ impl Address {
             Ok((rest, digits))
         }
 
+        fn rootindex(input: &str) -> IResult<&str, &str> {
+            let (input, _) = char('.')(input)?;
+            let (input, _) = char('[')(input)?;
+            let (input, digits) = digit1(input)?;
+            let (rest, _) = char(']')(input)?;
+            Ok((rest, digits))
+        }
+
         let mut adr = adr;
         while adr.len() > 0 {
+            if data.len() == 0 {
+                if let Ok((rest, index)) = rootindex(adr) {
+                    let index = index.parse::<usize>().unwrap();
+                    data.push(Index(index));
+                    adr = rest;
+                    continue;
+                }
+            }
             if let Ok((rest, field)) = field(adr) {
                 data.push(Field(String::from(field)));
                 adr = rest;
@@ -47,7 +63,6 @@ impl Address {
             if let Ok((rest, index)) = index(adr) {
                 let index = index.parse::<usize>().unwrap();
                 data.push(Index(index));
-
                 adr = rest;
                 continue;
             }
