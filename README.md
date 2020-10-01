@@ -22,6 +22,8 @@ Dump JSON safely from command-line
 
 ### Invalid values are Strings.
 
+YOU DONT NEED QUOTE and ESCAPE.
+
 ```bash
    qj -e '.=hoge'
 "hoge"
@@ -29,3 +31,9 @@ Dump JSON safely from command-line
    qj -e '.=ho"ge'
 "ho\"ge"
 ```
+
+## Install
+
+1. Install cargo
+1. Run `cargo install --path .`
+1. PATH to `~/.cargo/bin/`
